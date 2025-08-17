@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ff6347">
+    <title>Blossoming Sauce</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        /* Mobile-first base styles */
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* Mobile menu */
+        .menu-toggle {
+            display: block;
+            padding: 15px;
+            background: #ff6347;
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .sidenav {
+            width: 0;
+            height: 100vh;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidenav.active {
+            width: 250px;
+        }
+
+        .sidenav a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #f1f1f1;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            color: #ff6347;
+        }
+
+        .sidenav .close-btn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .main {
+            padding: 20px;
+            transition: margin-left 0.5s;
+        }
+
+        #FlowerImg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Tablet+ styles */
+        @media (min-width: 768px) {
+            .menu-toggle {
+                display: none;
+            }
+            
+            .sidenav {
+                width: 250px;
+                position: fixed;
+            }
+            
+            .main {
+                margin-left: 250px;
+            }
+        }
+
+        /* Content styling */
+        h1 {
+            color: #ff6347;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #666;
+            text-align: center;
+        }
+        
+        p {
+            line-height: 1.6;
+            padding: 0 15px;
+        }
+        
+        #Page_desc {
+            background-color: #ffece6;
+            padding: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
+
+    <!-- Side navigation -->
+    <div class="sidenav" id="sidenav">
+        <a href="javascript:void(0)" class="close-btn" onclick="toggleMenu()">&times;</a>
+        <div class="center">
+            <img src="https://openclipart.org/image/2400px/svg_to_png/74/PeterM-Flower.png" width="80" height="100" alt="Orange Logo">
+        </div>
+        <a href="Aniwatch.html">Home</a>
+        <a href="Tips.html">Helpful Tips</a>
+        <a href="SS.html">Song Suggestions</a>
+        <a href="Memes.html">Memes</a>
+    </div>
+
+    <!-- Page content -->
+    <div class="main">
+        <h1>Welcome to The Relaxing Reaux Experience</h1>
+        <h2>I really hope you like it</h2>
+
+        <div class="center">
+            <img id="FlowerImg" src="https://openclipart.org/image/2400px/svg_to_png/74/PeterM-Flower.png" alt="Orange Flower">
+        </div>
+        
+        <p id="Page_desc"><b>
+            This page is meant for relaxing and putting your mind at ease.
+            I hope you find comfort in these texts.
+        </b></p>
+
+        <p><strong>
+            Here we're displaying affirmations and calm acts
+        </strong></p>
+    </div>
+
+    <script>
+        // Toggle mobile menu
+        function toggleMenu() {
+            document.getElementById('sidenav').classList.toggle('active');
+        }
+
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+
+        // Install prompt for PWA
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            console.log('PWA install prompt available');
+        });
+    </script>
+</body>
+</html>
